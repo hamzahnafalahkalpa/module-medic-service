@@ -33,14 +33,14 @@ class MedicService extends BaseModel
         });
     }
 
-    public function toViewApi()
+    public function getViewResource()
     {
-        return new ViewMedicService($this);
+        return ViewMedicService::class;
     }
 
-    public function toShowApi()
+    public function getShowResource()
     {
-        return new ShowMedicService($this);
+        return ShowMedicService::class;
     }
 
     public function scopeActive($builder)
