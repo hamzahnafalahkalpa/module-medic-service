@@ -3,26 +3,17 @@
 namespace Hanafalah\ModuleMedicService\Schemas;
 
 use Hanafalah\ModuleMedicService\Contracts;
-use Hanafalah\ModuleMedicService\Enums\MedicServiceStatus;
-use Hanafalah\ModuleMedicService\Resources\MedicService\{ViewMedicService, ShowMedicService};
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
-use Hanafalah\LaravelSupport\Supports\PackageManagement;
-use Hanafalah\ModuleTransaction\Contracts\PriceComponent;
+use Hanafalah\ModuleMedicService\Contracts\Data\MedicServiceData;
+use Hanafalah\ModulePatient\Schemas\PatientType;
 
-class MedicService extends PackageManagement implements Contracts\MedicService
+class MedicService extends PatientType implements Contracts\Schemas\MedicService
 {
-    protected array $__guard   = ['id', 'name', 'flag'];
-    protected array $__add     = ['name', 'parent_id', 'flag', 'status'];
     protected string $__entity = 'MedicService';
     public static $medic_service_model;
+    protected mixed $__order_by_created_at = false; //asc, desc, false
 
-    protected array $__resources = [
-        'view' => ViewMedicService::class,
-        'show' => ShowMedicService::class
-    ];
-
-    public function createPriceComponent($medicService, $service, $attributes)
+    protected function createPriceComponent($medicService, $service, $attributes)
     {
         $price_component_schema = $this->schemaContract('price_component');
         return $price_component_schema->prepareStorePriceComponent([
@@ -55,78 +46,29 @@ class MedicService extends PackageManagement implements Contracts\MedicService
         return static::$medic_service_model = $medicService;
     }
 
-    public function updateMedicService(): array
-    {
-        return $this->transaction(function () {
-            return $this->showMedicService($this->prepareUpdateMedicService());
-        });
-    }
-
-    public function getMedicService(): mixed
-    {
-        return static::$medic_service_model;
-    }
-
-    public function showUsingRelation(): array
-    {
-        return ['service.priceComponents.tariffComponent'];
-    }
-
-    public function prepareShowMedicService(?Model $model = null, ?array $attributes = null)
-    {
-        $attributes ??= request()->all();
-
-        $model ??= $this->getMedicService();
-        if (!isset($model)) {
-            $id = $attributes['id'] ?? null;
-            if (!isset($id)) throw new \Exception('MedicService id is required');
-
-            $model = $this->MedicServiceModel()->with($this->showUsingRelation())->findOrFail($id);
-        } else {
-            $model->load($this->showUsingRelation());
+    public function prepareStoreMedicService(MedicServiceData $medic_service_dto): Model{
+        $add = [
+            'parent_id' => $medic_service_dto->parent_id,
+            'name'      => $medic_service_dto->name,
+            'flag'      => $medic_service_dto->flag,
+            'label'     => $medic_service_dto->label
+        ];
+        if (isset($medic_service_dto->id)){
+            $guard = ['id' => $medic_service_dto->id];
+            $create = [$guard,$add];
+        }else{
+            $create = [$add];
         }
-        return static::$medic_service_model = $model;
-    }
+        $medic_service = $this->usingEntity()->updateOrCreate(...$create);
+        $this->fillingProps($medic_service,$medic_service_dto->props);
+        $medic_service->save();
 
-    public function showMedicService(?Model $model = null): array
-    {
-        return $this->transforming($this->__resources['show'], function () use ($model) {
-            return $this->prepareShowMedicService($model);
-        });
-    }
-
-    public function addOrChange(?array $attributes = []): self
-    {
-        $medic_service = $this->updateOrCreate($attributes);
-        if (!isset($medic_service->service)) {
-            $parent    = $medic_service->parent;
-            if (isset($parent)) {
-                if (!isset($parent->service)) {
-                    $parent_service = $parent->service()->updateOrCreate([
-                        'name'      => $parent->name,
-                    ], [
-                        'status' => MedicServiceStatus::ACTIVE->value
-                    ]);
-                } else {
-                    $parent_service = $parent->service;
-                }
-                $parent_id = $parent_service->getKey();
-            } else {
-                $parent_id = null;
+        if (isset($medic_service_dto->childs) && count($medic_service_dto->childs) > 0){
+            foreach ($medic_service_dto->childs as $child_dto) {
+                $child_dto->parent_id = $medic_service->getKey();
+                $this->prepareStoreMedicService($child_dto);
             }
-
-            $medic_service->service()->updateOrCreate([
-                'parent_id' => $parent_id ?? null,
-                'name'      => $medic_service->name,
-            ], [
-                'status' => MedicServiceStatus::ACTIVE->value
-            ]);
         }
-        return $this;
-    }
-
-    protected function medicService($conditionals = []): Builder
-    {
-        return $this->MedicServiceModel()->with(['service.priceComponents.tariffComponent'])->conditionals($conditionals)->orderBy('name', 'asc');
+        return static::$medic_service_model = $medic_service;
     }
 }

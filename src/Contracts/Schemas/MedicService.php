@@ -1,0 +1,28 @@
+<?php
+
+namespace Hanafalah\ModuleMedicService\Contracts\Schemas;
+
+use Illuminate\Database\Eloquent\Model;
+use Hanafalah\LaravelSupport\Contracts\Supports\DataManagement;
+use Hanafalah\ModuleMedicService\Contracts\Data\MedicServiceData;
+
+/**
+ * @see \Hanafalah\ModuleMedicService\Schemas\MedicService
+ * @method self conditionals(mixed $conditionals)
+ * @method bool deleteMedicService()
+ * @method bool prepareDeleteMedicService(? array $attributes = null)
+ * @method mixed getMedicService()
+ * @method ?Model prepareShowMedicService(?Model $model = null, ?array $attributes = null)
+ * @method array showMedicService(?Model $model = null)
+ * @method Collection prepareViewMedicServiceList()
+ * @method array viewMedicServiceList()
+ * @method LengthAwarePaginator prepareViewMedicServicePaginate(PaginateData $paginate_dto)
+ * @method array viewMedicServicePaginate(?PaginateData $paginate_dto = null)
+ * @method array storeMedicService(?MedicServiceData $medic_service_dto = null)
+ * @method Builder medicService(mixed $conditionals = null)
+ */
+interface MedicService extends DataManagement
+{
+    public function prepareUpdateMedicService(?array $attributes = null): Model;
+    public function prepareStoreMedicService(MedicServiceData $medic_service_dto): Model;
+}
