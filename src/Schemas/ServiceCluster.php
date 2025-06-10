@@ -13,8 +13,7 @@ class ServiceCluster extends MedicService implements Contracts\Schemas\ServiceCl
     protected mixed $__order_by_created_at = false; //asc, desc, false
 
     public function prepareStoreServiceCluster(ServiceClusterData $service_cluster_dto): Model{
-        // $service_cluster = $this->prepareStoreMedicService($service_cluster_dto);
-        $service_cluster = $this->ServiceClusterModel()->first();
+        $service_cluster = $this->prepareStoreMedicService($service_cluster_dto);
         return static::$service_cluster_model = $service_cluster;
     }
 }
