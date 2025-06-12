@@ -2,12 +2,13 @@
 
 namespace Hanafalah\ModuleMedicService\Schemas;
 
+use Hanafalah\LaravelSupport\Supports\PackageManagement;
 use Hanafalah\ModuleMedicService\Contracts;
 use Illuminate\Database\Eloquent\Model;
 use Hanafalah\ModuleMedicService\Contracts\Data\MedicServiceData;
-use Hanafalah\ModulePatient\Schemas\PatientType;
+use Illuminate\Database\Eloquent\Builder;
 
-class MedicService extends PatientType implements Contracts\Schemas\MedicService
+class MedicService extends PackageManagement implements Contracts\Schemas\MedicService
 {
     protected string $__entity = 'MedicService';
     public static $medic_service_model;
@@ -70,5 +71,11 @@ class MedicService extends PatientType implements Contracts\Schemas\MedicService
             }
         }
         return static::$medic_service_model = $medic_service;
+    }
+
+    public function medicService(mixed $conditionals = null): Builder{
+        return $this->generalSchemaModel($conditionals)->when(isset(request()->flag),function($query){
+            $query->flagIn(request()->flag);
+        })->whereNull('parent_id');
     }
 }

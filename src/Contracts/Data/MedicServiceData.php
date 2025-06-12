@@ -2,6 +2,6 @@
 
 namespace Hanafalah\ModuleMedicService\Contracts\Data;
 
-use Hanafalah\ModulePatient\Contracts\Data\PatientTypeData;
+use Spatie\LaravelData\Contracts\BaseData;
 
-interface MedicServiceData extends PatientTypeData{}
+interface MedicServiceData extends BaseData{}

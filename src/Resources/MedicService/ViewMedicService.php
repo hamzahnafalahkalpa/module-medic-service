@@ -18,6 +18,11 @@ class ViewMedicService extends ApiResource
             'status'    => $this->status,
             'service'   => $this->relationValidation('service', function () {
                 return $this->service->toViewApi();
+            }),
+            'childs' => $this->relationValidation('childs',function(){
+                return $this->childs->transform(function($child){
+                    return $child->toViewApi();
+                });
             })
         ];
 

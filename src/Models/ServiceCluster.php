@@ -6,7 +6,7 @@ use Hanafalah\ModuleMedicService\Resources\ServiceCluster\{ViewServiceCluster, S
 
 class ServiceCluster extends MedicService
 {
-    protected $table = 'patient_types';
+    protected $table = 'medic_services';
 
     protected static function booted(): void
     {

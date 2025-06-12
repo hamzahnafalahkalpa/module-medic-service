@@ -5,6 +5,7 @@ namespace Hanafalah\ModuleMedicService\Contracts\Schemas;
 use Illuminate\Database\Eloquent\Model;
 use Hanafalah\LaravelSupport\Contracts\Supports\DataManagement;
 use Hanafalah\ModuleMedicService\Contracts\Data\MedicServiceData;
+use Illuminate\Database\Eloquent\Builder;
 
 /**
  * @see \Hanafalah\ModuleMedicService\Schemas\MedicService
@@ -19,10 +20,10 @@ use Hanafalah\ModuleMedicService\Contracts\Data\MedicServiceData;
  * @method LengthAwarePaginator prepareViewMedicServicePaginate(PaginateData $paginate_dto)
  * @method array viewMedicServicePaginate(?PaginateData $paginate_dto = null)
  * @method array storeMedicService(?MedicServiceData $medic_service_dto = null)
- * @method Builder medicService(mixed $conditionals = null)
  */
 interface MedicService extends DataManagement
 {
     public function prepareUpdateMedicService(?array $attributes = null): Model;
     public function prepareStoreMedicService(MedicServiceData $medic_service_dto): Model;
+    public function medicService(mixed $conditionals = null): Builder;
 }
