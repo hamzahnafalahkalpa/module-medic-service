@@ -60,5 +60,5 @@ class MedicService extends BaseModel
     public function scopeActive($builder){return $builder->where('props->status', Status::ACTIVE->value);}
     public function priceComponent(){return $this->morphOneModel('PriceComponent', 'model');}
     public function priceComponents(){return $this->morphManyModel('PriceComponent', 'model');}
-    public function childs(){return $this->hasMany(self::class, 'parent_id')->with('childs','service');}    
+    public function childs(){return $this->hasManyModel((new static)->getMorphClass(), 'parent_id')->with('childs','service');}    
 }

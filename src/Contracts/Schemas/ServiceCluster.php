@@ -4,6 +4,7 @@ namespace Hanafalah\ModuleMedicService\Contracts\Schemas;
 
 use Illuminate\Database\Eloquent\Model;
 use Hanafalah\ModuleMedicService\Contracts\Data\ServiceClusterData;
+use Illuminate\Database\Eloquent\Builder;
 
 /**
  * @see \Hanafalah\ModuleMedicService\Schemas\ServiceCluster
@@ -18,9 +19,9 @@ use Hanafalah\ModuleMedicService\Contracts\Data\ServiceClusterData;
  * @method LengthAwarePaginator prepareViewServiceClusterPaginate(PaginateData $paginate_dto)
  * @method array viewServiceClusterPaginate(?PaginateData $paginate_dto = null)
  * @method array storeServiceCluster(?ServiceClusterData $service_cluster_dto = null)
- * @method Builder serviceCluster(mixed $conditionals = null)
  */
 interface ServiceCluster extends MedicService
 {
     public function prepareStoreServiceCluster(ServiceClusterData $service_cluster_dto): Model;
+    public function serviceCluster(mixed $conditionals = null): Builder;
 }
