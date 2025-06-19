@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Builder;
 
 /**
  * @see \Hanafalah\ModuleMedicService\Schemas\MedicService
+ * @method self setParamLogic(string $logic, bool $search_value = false, ?array $optionals = [])
  * @method self conditionals(mixed $conditionals)
  * @method bool deleteMedicService()
  * @method bool prepareDeleteMedicService(? array $attributes = null)

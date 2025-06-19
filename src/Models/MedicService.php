@@ -57,6 +57,10 @@ class MedicService extends BaseModel
         return ShowMedicService::class;
     }
 
+    public function scopeLabelIn($builder,string|array $labels){
+        $labels = $this->mustArray($labels);
+        return $builder->whereIn('label', $labels);
+    }
     public function scopeActive($builder){return $builder->where('props->status', Status::ACTIVE->value);}
     public function priceComponent(){return $this->morphOneModel('PriceComponent', 'model');}
     public function priceComponents(){return $this->morphManyModel('PriceComponent', 'model');}

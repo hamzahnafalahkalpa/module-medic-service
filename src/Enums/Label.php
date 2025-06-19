@@ -16,6 +16,7 @@ enum Label: string
     case RADIOLOGY       = 'RADIOLOGI';
     case ADMINISTRATION  = 'ADMINISTRASI';
     case PHARMACY        = 'FARMASI';
+    case PHARMACY_UNIT   = 'INSTALASI FARMASI';
     case MEDICAL_RECORD  = 'MEDICAL RECORD';
     case OTHER           = 'OTHER';
 }
