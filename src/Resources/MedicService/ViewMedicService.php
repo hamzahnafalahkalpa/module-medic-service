@@ -3,29 +3,15 @@
 namespace Hanafalah\ModuleMedicService\Resources\MedicService;
 
 use Illuminate\Http\Request;
-use Hanafalah\LaravelSupport\Resources\ApiResource;
+use Hanafalah\LaravelSupport\Resources\Unicode\ViewUnicode;
 
-class ViewMedicService extends ApiResource
+class ViewMedicService extends ViewUnicode
 {
     public function toArray(Request $request): array
     {
         $arr = [
-            'id'        => $this->id,
-            'parent_id' => $this->parent_id,
-            'name'      => $this->name,
-            'flag'      => $this->flag,
-            'label'     => $this->label,
-            'status'    => $this->status,
-            'service'   => $this->relationValidation('service', function () {
-                return $this->service->toViewApi();
-            }),
-            'childs' => $this->relationValidation('childs',function(){
-                return $this->childs->transform(function($child){
-                    return $child->toViewApi();
-                });
-            })
         ];
-
+        $arr = $this->mergeArray(parent::toArray($request), $arr);
         return $arr;
     }
 }

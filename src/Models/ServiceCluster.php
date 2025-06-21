@@ -6,18 +6,7 @@ use Hanafalah\ModuleMedicService\Resources\ServiceCluster\{ViewServiceCluster, S
 
 class ServiceCluster extends MedicService
 {
-    protected $table = 'medic_services';
-
-    protected static function booted(): void
-    {
-        parent::booted();
-        static::addGlobalScope('flag',function($query){
-            $query->where('flag','SERVICE_CLUSTER');
-        });
-        static::creating(function ($query) {
-            $query->flag = 'SERVICE_CLUSTER';
-        });
-    }
+    protected $table = 'unicodes';
 
     public function getViewResource(){
         return ViewServiceCluster::class;

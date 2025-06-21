@@ -2,6 +2,6 @@
 
 namespace Hanafalah\ModuleMedicService\Contracts\Data;
 
-use Spatie\LaravelData\Contracts\BaseData;
+use Hanafalah\LaravelSupport\Contracts\Data\UnicodeData;
 
-interface MedicServiceData extends BaseData{}
+interface MedicServiceData extends UnicodeData{}

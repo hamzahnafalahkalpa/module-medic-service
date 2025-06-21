@@ -2,8 +2,8 @@
 
 namespace Hanafalah\ModuleMedicService\Contracts\Schemas;
 
+use Hanafalah\LaravelSupport\Contracts\Schemas\Unicode;
 use Illuminate\Database\Eloquent\Model;
-use Hanafalah\LaravelSupport\Contracts\Supports\DataManagement;
 use Hanafalah\ModuleMedicService\Contracts\Data\MedicServiceData;
 use Illuminate\Database\Eloquent\Builder;
 
@@ -22,7 +22,7 @@ use Illuminate\Database\Eloquent\Builder;
  * @method array viewMedicServicePaginate(?PaginateData $paginate_dto = null)
  * @method array storeMedicService(?MedicServiceData $medic_service_dto = null)
  */
-interface MedicService extends DataManagement
+interface MedicService extends Unicode
 {
     public function prepareUpdateMedicService(?array $attributes = null): Model;
     public function prepareStoreMedicService(MedicServiceData $medic_service_dto): Model;
