@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Builder;
 class MedicService extends Unicode implements Contracts\Schemas\MedicService
 {
     protected string $__entity = 'MedicService';
-    public static $medic_service_model;
+    public $medic_service_model;
     protected mixed $__order_by_created_at = false; //asc, desc, false
 
     protected function createPriceComponent($medicService, $service, $attributes){
@@ -42,12 +42,12 @@ class MedicService extends Unicode implements Contracts\Schemas\MedicService
         } else {
             $service->priceComponents()->delete();
         }
-        return static::$medic_service_model = $medicService;
+        return $this->medic_service_model = $medicService;
     }
 
     public function prepareStoreMedicService(MedicServiceData $medic_service_dto): Model{
         $medic_service = $this->prepareStoreUnicode($medic_service_dto);
-        return static::$medic_service_model = $medic_service;
+        return $this->medic_service_model = $medic_service;
     }
 
     public function medicService(mixed $conditionals = null): Builder{
