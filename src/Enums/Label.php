@@ -18,5 +18,7 @@ enum Label: string
     case PHARMACY        = 'FARMASI';
     case PHARMACY_UNIT   = 'INSTALASI FARMASI';
     case MEDICAL_RECORD  = 'MEDICAL RECORD';
-    case OTHER           = 'OTHER';
+    case PUSKESMAS_PEMBANTU = 'PUSKESMAS PEMBANTU';
+    case POSYANDU           = 'POSYANDU';
+    case OTHER              = 'OTHER';
 }
