@@ -19,6 +19,7 @@ enum Label: string
     case ADMINISTRATION     = 'ADMINISTRASI';
     case PHARMACY           = 'FARMASI';
     case PHARMACY_UNIT      = 'INSTALASI FARMASI';
+    case TREATMENT_ROOM     = 'RUANG TINDAKAN';
     case MEDICAL_RECORD     = 'MEDICAL RECORD';
     case PUSKESMAS_PEMBANTU = 'PUSKESMAS PEMBANTU';
     case POSYANDU           = 'POSYANDU';
