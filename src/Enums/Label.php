@@ -23,5 +23,6 @@ enum Label: string
     case MEDICAL_RECORD     = 'MEDICAL RECORD';
     case PUSKESMAS_PEMBANTU = 'PUSKESMAS PEMBANTU';
     case POSYANDU           = 'POSYANDU';
+    case SURVEILLANCE       = 'SURVEILLANCE';
     case OTHER              = 'OTHER';
 }
