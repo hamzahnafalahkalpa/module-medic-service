@@ -11,13 +11,6 @@
             "Hanafalah\\ModuleMedicService\\": "src/"
         }
     },
-    "extra": {
-        "laravel": {
-            "providers": [
-                "Hanafalah\\ModuleMedicService\\ModuleMedicServiceServiceProvider"
-            ]
-        }
-    },
     "authors": [
         {
             "name": "Hamzah",
