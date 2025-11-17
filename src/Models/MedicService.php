@@ -9,7 +9,7 @@ class MedicService extends Unicode
 {
     protected $table = 'unicodes';
 
-    protected function isUsingService(): bool{
+    public function isUsingService(): bool{
         return true;
     }
 
