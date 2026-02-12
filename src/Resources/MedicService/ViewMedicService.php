@@ -12,6 +12,9 @@ class ViewMedicService extends ViewUnicode
         $arr = [
         ];
         $arr = $this->mergeArray(parent::toArray($request), $arr);
+        if(isset($arr['service'])){
+            unset($arr['service']['reference']);
+        }
         return $arr;
     }
 }
